@@ -64,8 +64,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         categoryQuestions = quizQuestions.filter { $0.category == .red }
         green.isHidden = true
         blue.isHidden = true
-        yellow.isHidden = true
         orange.isHidden = true
+        yellow.isHidden = true
         //setupQuiz()
         updateQuestion()
     }
@@ -73,8 +73,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func blue(_ sender: Any) {
         categoryQuestions = quizQuestions.filter { $0.category == .blue }
         updateQuestion()
-        green.isHidden = true
         red.isHidden = true
+        green.isHidden = true
         yellow.isHidden = true
         orange.isHidden = true
     }
@@ -82,8 +82,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func green(_ sender: Any) {
         categoryQuestions = quizQuestions.filter { $0.category == .green }
         updateQuestion()
-        blue.isHidden = true
         red.isHidden = true
+        blue.isHidden = true
         yellow.isHidden = true
         orange.isHidden = true
     }
@@ -171,7 +171,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             print("decode error")
         }
     }
-    // added a comment (for testing)
     
 }
 
