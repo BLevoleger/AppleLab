@@ -27,23 +27,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var answerTextField: UITextField!
     @IBOutlet weak var red: UIButton!
     @IBOutlet weak var orange: UIButton!
+    @IBOutlet weak var HOME: UIButton!
+    @IBOutlet weak var AnswerCount: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        //updateQuestion()
-        // Do any additional setup after loading the view.
         answerTextField.delegate = self
-        
-//        quizQuestions = [questionOne, questionTwo]
         getLocalQuizData()
     }
     
-    func setupQuiz() {
-//        print("quizQuestions is \(quizQuestions)")
-        // setup the quiz!
-//        categoryQuestions = quizQuestions.filter { $0.category == .orange}
-      
-    }
     
+
     func updateQuestion() {
         questionLabel.text = categoryQuestions[currentQuestion].question
         answerTextField.text=""
@@ -59,6 +52,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         updateQuestion()
         
     }
+
     
     @IBAction func red(_ sender: Any) {
         categoryQuestions = quizQuestions.filter { $0.category == .red }
@@ -66,54 +60,70 @@ class ViewController: UIViewController, UITextFieldDelegate {
         blue.isHidden = true
         orange.isHidden = true
         yellow.isHidden = true
-        //setupQuiz()
         updateQuestion()
     }
     
     @IBAction func blue(_ sender: Any) {
         categoryQuestions = quizQuestions.filter { $0.category == .blue }
-        updateQuestion()
+
         red.isHidden = true
         green.isHidden = true
         yellow.isHidden = true
         orange.isHidden = true
+        updateQuestion()
     }
     
     @IBAction func green(_ sender: Any) {
         categoryQuestions = quizQuestions.filter { $0.category == .green }
-        updateQuestion()
+
         red.isHidden = true
         blue.isHidden = true
         yellow.isHidden = true
         orange.isHidden = true
+        updateQuestion()
     }
     
     @IBAction func yellow(_ sender: Any) {
         categoryQuestions = quizQuestions.filter { $0.category == .yellow}
-        updateQuestion()
+
         red.isHidden = true
         blue.isHidden = true
         green.isHidden = true
         orange.isHidden = true
+        updateQuestion()
     }
     @IBAction func orange(_ sender: Any) {
         categoryQuestions = quizQuestions.filter { $0.category == .orange}
-        updateQuestion()
+
         red.isHidden = true
         blue.isHidden = true
         green.isHidden = true
         yellow.isHidden = true
+        updateQuestion()
+    }
+    
+    
+    @IBAction func HOME(_ sender: Any) {
+        questionLabel.text = "Selecteer een categorie"
+        answerLabel.text = ""
+        currentQuestion = 0
+        answerTextField.text = ""
+        red.isHidden = false
+        blue.isHidden = false
+        green.isHidden = false
+        yellow.isHidden = false
+        orange.isHidden = false
     }
     
     func checkAnswer(answer: String) {
         if answer.lowercased() == quizQuestions[currentQuestion].answer.lowercased() {
             answerLabel.text = "Goed!"
-            answerCount+=1
+            answerCount += 1
+            AnswerCount.text = String(answerCount)
         } else {
-            answerLabel.text = "Fout!"
+            answerLabel.text = "Fout!, antwoord was: " + categoryQuestions[currentQuestion].answer
         }
     }
-
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
         if let answer = textField.text {
@@ -124,7 +134,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
         return true
     }
+
     
+
   
     
     // MARK: - JSON Functions
@@ -134,8 +146,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if let localData = self.readLocalFile(forName: "localQuizData") {
             // File exists, now parse 'localData' with the parse function
             self.parse(jsonData: localData)
-            
-            setupQuiz()
         }
     }
 
